@@ -1,6 +1,11 @@
 .form-wrap{
  	&__input-wrap{
 			// @extend .form-group;
+			@include media-breakpoint-up(sm) {
+
+				margin-bottom: rem(40);
+			}
+			margin-bottom: rem(20);
 			
 		}
 		&__input{
@@ -14,9 +19,22 @@
  	label{
  		width: 100%;
  		display: block;
- 	}
-}
+	 }
+	 &__title{
+		 padding-bottom: rem(8);
+		 display: block;
+	 }
+&__antibot {
+	@include media-breakpoint-up(sm) {
 
+		margin-bottom: rem(40);
+	}
+	margin-bottom: rem(20);
+}
+}
+textarea{
+	height: rem(120);
+}
 
 .parsley-error{
 	border-image: none;

@@ -1,4 +1,27 @@
 mixin footer()
 	+b.FOOTER.footer.block-with-lazy
 		.container
-			h2 footer
+			+e.UL.nav(itemscope itemtype="http://schema.org/SiteNavigationElement")
+				-
+					var nav= {
+						"Правящий Архиерей":"#",
+						"Викарий епархии":"#",
+						"Послания":"#", 
+						"История епархии":"#",
+						"Отдел кадров":"#",
+						"Паломнический отдел":"#",
+						"Социальный отдел":"#", 
+						"Работа с молодежью":"#", 
+						"Приходы":"#", 
+						"Телеканал Союз":"#", 
+						"Минская Духовная Академия":"#", 
+						"Телеканал Спас":"#", 
+						"Написать нам":"#", 
+						"Контакты":"#", 
+						}
+				each linkPatch, linkName in nav
+					+e.LI.item( itemprop="item" )
+						+e.A.link(href= linkPatch  itemprop="url")= linkName
+			.d-sm-none
+				+soc
+			+e.copy Copyrights © 2014-2019. Все права защищены.

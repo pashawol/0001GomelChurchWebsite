@@ -20,3 +20,61 @@ mixin ie11()
 	//- modernizer and for ie11
 	 
 	<!--[if lt IE 11]><p   class="browsehappy container">К сожалению, вы используете устаревший браузер. Пожалуйста, <a href="http://browsehappy.com/" target="_blank">обновите ваш браузер</a>, чтобы улучшить производительность, качество отображаемого материала и повысить безопасность.</p><![endif]-->
+
+
+mixin card-caption(t='Божественная литургия в четверг Светлой седмицы', p='Божественную литургию в четверг Светлой седмицы, в 8-ю годовщину со дня преставления архиепископа Аристарха 23 апреля 2020 года в Никольском...',sm, color)
+	+e.caption
+		if !sm
+			+e.title.h3 
+				a(href="#").text-body= t
+		else
+			+e.title
+				a(href="#").text-body= t
+		+e.label.text-secondary 
+			+e.label-item Сегодня, 13:04
+			+e.label-item 38 просмотров
+		if !sm
+			+e.text= p
+mixin itemCaption(t,p)
+	+b.card
+		+e.caption 
+			+e.title
+				a(href="#")= t
+			+e.label.text-secondary 
+				+e.label-item Сегодня, 13:04
+				+e.label-item 38 просмотров
+			+e.text.text-secondary!= p
+			if block
+				block
+			else
+				.text-right.pt-3
+					a(href="#").strong Подробнее
+mixin cardImgwrap(i)
+	+e.img-wrap.bg-wrap(href="#")
+		+pic(i,"bg",'lazy',0)(class="picture-bg")
+
+mixin card-hor(i, t,p)
+	+b.card--horizontal
+		+cardImgwrap(i)
+		+card-caption(t)
+mixin card(i, t,p)
+	+b.card
+		+cardImgwrap(i)
+		+card-caption(t, p)
+mixin cardNews(i, t,p)
+	+b.card
+		+cardImgwrap(i)
+		+card-caption(t, p,'sm')
+
+mixin mainCards()
+	+b.SECTION.section
+		h2 Архиерейские богослужения
+		+card-hor('card-1')
+		.row.row--main
+			.col-md-6
+				+card('card-2','Божественная литургия в среду Светлой Седмицы','Божественную литургию в среду Светлой Седмицы 22 апреля 2020г. Высокопреосвященнейший Стефан...')
+			.col-md-6
+				+card('card-3','Божественная литургия во вторник Светлой седмицы, день...','Божественную литургию во вторник Светлой седмицы, день празднования Иверской иконы...')
+			.col-md-6
+				a.btn.btn-outline.btn-block(href="#") Смотреть все статьи
+

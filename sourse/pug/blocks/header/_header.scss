@@ -1,6 +1,8 @@
 
 	// start .header
 	.header {
+		position: relative;
+		padding-bottom: var(--sPB);
 		 
 	@include media-breakpoint-up(xl) {}
 	@include media-breakpoint-up(lg) {}

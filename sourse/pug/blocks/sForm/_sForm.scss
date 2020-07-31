@@ -1,6 +1,18 @@
 
 	// start .sForm
 	.sForm {
+		p{
+			margin-bottom: rem(25);
+			max-width: rem(787);
+		}
+		.form-wrap{
+			max-width: rem(787);
+			@include media-breakpoint-up(sm) {
+
+				padding-top: rem(15);
+			}
+
+		}
 		 
 	@include media-breakpoint-up(xl) {}
 	@include media-breakpoint-up(lg) {}

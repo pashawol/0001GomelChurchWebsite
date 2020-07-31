@@ -1,0 +1,28 @@
+extends layout/main.pug
+
+
+include ../blocks/sContent/_sContent.pug
+include ../blocks/sContact/_sContact.pug
+include ../blocks/sNews/_sNews.pug
+include ../blocks/sBanners/_sBanners.pug
+include ../blocks/sSchedule/_sSchedule.pug
+include ../blocks/sCalendar/_sCalendar.pug
+
+block variables
+	- let  mainPage="page-404"
+block title
+	- let  title= 'Контакты'
+	title= title
+block pagecontent
+	+header()
+		+topLine()
+			+mob-mnu()
+		+top-nav()
+	+b.s404.container.section
+		+e.lg 404
+		+e.text Такой страницы не&nbsp;существует
+
+	+footer()
+
+
+	

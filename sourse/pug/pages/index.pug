@@ -3,6 +3,10 @@ extends layout/main.pug
 
 include ../blocks/sContent/_sContent.pug
 include ../blocks/sContact/_sContact.pug
+include ../blocks/sNews/_sNews.pug
+include ../blocks/sBanners/_sBanners.pug
+include ../blocks/sSchedule/_sSchedule.pug
+include ../blocks/sCalendar/_sCalendar.pug
 
 block variables
 	- let  mainPage= null
@@ -10,31 +14,25 @@ block title
 	- let  title= 'title'
 	title= title
 block pagecontent
-	//- +mob-mnu()
+	+b.alert.bg-danger Вниманию духовенства Гомеля! Общая исповедь состоится 12&nbsp;апреля.
+	+b.alert.bg-warning Вниманию духовенства Гомеля! Божественная литургия состоится 19&nbsp;мая.
 	+header()
-
-		+top-nav()
 		+topLine()
+			+mob-mnu()
+		+top-nav()
 	.container
-		+b.tabs
-			+e.caption
-				+e.btn.btn.btn-primary.active btn 1
-				+e.btn.btn.btn-primary btn 2
-				+e.btn.btn.btn-primary btn 3
-			div
-				+e.content.active  content 1
-				+e.content content 2
-				+e.content content 3
-		+b.tabs
-			+e.caption
-				+e.btn.btn.btn-primary.active btn 1
-				+e.btn.btn.btn-primary btn 2
-				+e.btn.btn.btn-primary btn 3
-			div
-				+e.content.active  content 1
-				+e.content content 2
-				+e.content content 3
-	+headerBlock()
-	+sForm()
-	+sContact()
+		.row--main.row
+			.col-lg-8
+				+mainCards()
+				+sNews
+				+sNews2()
+			.col-lg-12.order-lg-last
+				+sBanners
+			aside.col-lg-4
+				+sSchedule
+				+sCalendar
+	+sBanners-sm()
 	+footer()
+
+
+	

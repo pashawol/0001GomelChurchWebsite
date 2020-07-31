@@ -1,7 +1,56 @@
 
 	// start .sContent
 	.sContent {
-		 
+		// --swiperArrowSize: #{rem(48)};
+		--swiperBgDef: rgba(255, 255, 255, 0.5);
+		.swiper-button-hand{
+			margin-top: rem(-8);
+		}
+		&__label {
+			display: flex;
+			@include roww(rem(32));
+			margin-bottom: var(--sPB);
+
+			&-item {
+
+				&:first-child {
+					position: relative;
+
+					&::after {
+						content: '';
+						position: absolute;
+						right: 0;
+						@include a-cent(y);
+						width: 1px;
+						height: rem(24px);
+						background-color: currentColor;
+					}
+				}
+			}
+		}
+		&__img-wrap{
+			display: block;
+			@include block(118, 112);
+			max-height: rem(400);
+			margin-bottom: 16px;
+			overflow: hidden;
+			border-radius: $border-radius;
+			img{
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		}
+		&__slider--sm{
+			margin-bottom: calc(var(--sPB) * .76);
+			// margin-bottom: rem(30);
+		}
+		p{
+			margin-bottom: rem(24);
+		}
 	@include media-breakpoint-up(xl) {}
 	@include media-breakpoint-up(lg) {}
 	@include media-breakpoint-up(md) {}

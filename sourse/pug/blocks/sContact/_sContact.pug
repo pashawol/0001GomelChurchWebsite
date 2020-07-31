@@ -1,9 +1,32 @@
 mixin sContact()
 	// start sContact
-	+b.SECTION.sContact.section#sContact&attributes(attributes)
+	+b.sContact.pt-0.section#sContact&attributes(attributes)
 		.container
-			+b.section-title.text-center
-				h2 sContact
-				
-			.row
+			mixin itemCaption(t,addr,email)
+				+b.card
+					+e.caption 
+						+e.title.mb-0= t
+						+e.text= addr
+						if block
+							+e.text
+								block 
+							if email
+								+e.text
+									a.strong(href=`mailto:${email}`)= email
+			+itemCaption('Секретарь Гомельской епархии протоиерей Георгий Алампиев','246014 г.Гомель, ул.Кропоткина,2','eparhia.gomel@mail.ru')
+				a.text-body(href="tel:(+375)232555561") (+375) 232 55 55 61
+			+itemCaption('Заведующий канцелярией Василий Владимирович Черняков','246014 г.Гомель, ул.Кропоткина,2','eparhia.gomel@mail.ru')
+				a.text-body(href="tel:(+375)23255-55-62") (+375) 232 55-55-62
+			+itemCaption('Бухгалтерия. Татьяна Викторовна Андреюшкова','246014 г.Гомель, ул.Кропоткина,2')
+				a.text-body(href="tel:(+375)232555562") (+375) 232 55 55 62
+			+itemCaption('Отдел кадров. Надежда Сергеевна Макарова','246014 г.Гомель, ул.Кропоткина,2','otdel_kadrov_eparhiya_gomel@mail.ru')
+				a.text-body(href="tel:(+375)232553922") (+375) 232 55 39 22
+			+itemCaption('Эконом протоиерей Владимир Масалитин','246014 г.Гомель, ул.Кропоткина,2')
+				a.text-body(href="tel:(+375)232555562") (+375) 232 55 55 62
+
+			+itemCaption('Информационный отдел. Протоиерей Олег Кострома, Конончук Ольга Анатольевна','246045 г.Гомель, ул. Каменщикова, 9 ','info@eparhiya.by')
+				a.text-body(href="tel:(+375)232240405") (+375) 232 24 04 05
+			+itemCaption('Отдел по архитектуре и строительству. Протоиерей Георгий Тур','246014 г.Гомель, ул.Быховская,10')
+				a.text-body(href="tel:(+375)232240405") (+375) 232 24 04 05
+
 	// end sContact

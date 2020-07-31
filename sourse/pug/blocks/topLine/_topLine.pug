@@ -1,9 +1,28 @@
 mixin topLine()
 	// start topLine
-	+b.SECTION.topLine.section#topLine&attributes(attributes)
-		.container
-			+b.section-title.text-center
-				h2 topLine
-				
+	+b.topLine&attributes(attributes)
+		.container 
 			.row
+				.col
+					+b.logo(href="/")
+						img(src="img/@2x/logo.png", alt="")
+						+e.DIV.caption
+							+e.DIV.title Гомельскаs Епархиs
+							+e.DIV.text Белорусскаs Православнаs Церковь
+
+				.col-auto.d-none.d-lg-block
+					ul
+						li
+							a(href="#") Написать нам
+						li
+							a(href="#") Контакты
+				.col-auto.d-none.d-lg-block
+					+soc()
+				.col-auto.d-xl-none.d-none.d-sm-block
+					+b.btn-search--js(type="button") 
+						+icon('search')
+				.col-auto.d-lg-none 
+					+b.toggle-menu-mobile--js
+						span
+		block
 	// end topLine

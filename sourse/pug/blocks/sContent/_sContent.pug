@@ -1,9 +1,29 @@
 mixin sContent()
 	// start sContent
-	+b.SECTION.sContent.section#sContent&attributes(attributes)
-		.container
-			+b.section-title.text-center
-				h2 sContent
-				
-			.row
+	+b.sContent#sContent&attributes(attributes)
+		+e.label.text-secondary 
+			+e.label-item Вчера, 17:19
+			+e.label-item 120 просмотров
+		+e.slder--lg.swiper-container.gallery-top
+			.swiper-wrapper
+				- for (var x = 1; x < 8; x++)
+					+e.slide.swiper-slide
+						+e.img-wrap(href=`img/@2x/slide-${x}.jpg` data-fancybox="gal")
+							img.swiper-lazy(src="#" data-src=`img/@2x/slide-${x}.jpg`, alt="")
+		+e.slider--sm.swiper-container.gallery-thumbs
+			.swiper-wrapper
+				- for (var x = 1; x < 8; x++)
+					+e.slide.swiper-slide
+						+e.img-wrap
+							img.swiper-lazy(src="#" data-src=`img/@2x/slide-${x}.jpg`, alt="")
+			+arrow
+		p #[strong(style="color:#005D9E") Высокопреосвященнейший Стефан], архиепископ Гомельский и Жлобинский, 8 мая 2020г. принял участие в торжественном митинге, посвященном 75-летию Великой Победы. 
+
+		p Почтить память тех, кто сражался за свободу родной земли, пришли руководство области и города, представители трудовых коллективов, общественных организаций, молодежь, военнослужащие.
+
+		p Участники митинга возложили цветы в память о всех погибших в годы войны. Светлую память павших героев горожане почтили минутой молчания.
+		+e.label.text-secondary.pt-3
+			+e.label-item Поделиться
+			+e.label-item 
+				+soc2()
 	// end sContent

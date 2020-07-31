@@ -1,42 +1,22 @@
-mixin mnu()
-	-
-		var nav= { 
-			"Наши работы":"#",
-			"Цены":"#",
-			"Калькулятор":"#",
-			"Акции":"#" ,
-			"Заказать":"#",
-			}
-	ul.menu(itemscope itemtype="http://schema.org/SiteNavigationElement")
-		li.menu-item.menu-item-has-children
-			a(href="#" itemprop="url") О нас
-			ul.sub-menu
-				-
-					var subnav= { 
-						"Строительство загородных домов":"#",
-						"Отделка загородных домов":"#",
-						"Покраска деревянных домов":"#",
-						"Штукатурные фасады загородных домов":"#" ,
-						}
-				each sublinkPatch, sublinkName in nav
-					li.menu-item(itemprop="item" ): a(href= sublinkPatch itemprop="url")= sublinkName
-		each linkPatch, linkName in nav
-			li.menu-item(itemprop="item" ): a(href= linkPatch itemprop="url")= linkName
-
 //- menu
 mixin mnu()
 	-
 		var nav= {
-			"Главная":"/",
-			"Услуги  ":"#",
-			"Подбор септика   ":"#",
-			"Акции ":"#"," О компании  ":"#",
-			" Доставка и оплата ":"#",
-			" Клиентам  ":"#",
-			" Наши работы   ":"#",
-			"Контакты ":"#sContact"
+			"О епархии":"#",
+			"Документы":"#",
+			"Отделы":"#", 
+			"Благочиния":"#",
+			"Монастыри":"#",
+			"Паломничества":"#",
+			"Полезное":"#"
 			}
-	+e.UL.nav(itemscope itemtype="http://schema.org/SiteNavigationElement")
+	+b.UL.nav(itemscope itemtype="http://schema.org/SiteNavigationElement")
+		+e.LI.item( itemprop="item" ): +e.A.link.current(href="#"  itemprop="url") Главная
 		each linkPatch, linkName in nav
-			+e.LI.item( itemprop="item" ): +e.A.link(href= linkPatch  itemprop="url")= linkName
+			+e.LI.item--has-child( itemprop="item" )
+				+e.A.link(href= linkPatch  itemprop="url")= linkName
+				+b.UL.menu-sub( itemprop="item" )
+					+e.LI.item: +e.A.link(href="#"  itemprop="url") Под меню 1
+					+e.LI.item: +e.A.link(href="#"  itemprop="url") Под меню 2
+					+e.LI.item: +e.A.link(href="#"  itemprop="url") Под меню 3
 //- /menu

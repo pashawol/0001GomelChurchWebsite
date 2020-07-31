@@ -1,9 +1,24 @@
 mixin sForm()
 	// start sForm
-	+b.SECTION.sForm.section#sForm&attributes(attributes)
-		.container
-			+b.section-title.text-center
-				h2 sForm
-				
-			.row
+	+b.sForm.section.pt-0#sForm&attributes(attributes)
+		.container 
+			p: strong Уважаемые посетители нашего сайта!
+
+			p У&nbsp;Вас есть вопрос, мы&nbsp;будем рады Вас выслушать и&nbsp;постараемся ответить. Наши работники оставляет за&nbsp;собой право не&nbsp;отвечать на&nbsp;реплики и&nbsp;не&nbsp;публиковать письма посетителей, которые, по&nbsp;нашему мнению, не&nbsp;несут смысловой нагрузки или по&nbsp;тем или иным причинам не&nbsp;нуждаются в&nbsp;ответах. Рекомендуем не&nbsp;использовать ненормативную лексику, поскольку такие сообщения удаляются автоматически.
+			+form-wrap
+				.row.row--main
+					.col-md-6
+						+input('Имя','text','Ваше имя')
+					.col-md-6
+						+input('Email','email','Ваш Email')
+					.col-12
+						+input('Сообщение','textarea','Сообщение')
+					.col-md-6
+						+input('Код','text','Код с картинки')(class="border-danger")
+							span.smallest.text-danger Wrong text or amount
+					.col-md-6
+						+e.antibot
+							img(src="img/@2x/antibot.jpg", alt="")
+					.col-md-6
+						button.btn.btn-block.btn-outline(type="submit") Отправить
 	// end sForm

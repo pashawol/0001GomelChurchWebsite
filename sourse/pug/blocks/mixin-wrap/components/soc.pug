@@ -3,7 +3,8 @@ mixin item-sos(icon, a='#')
 		if block
 			block
 		else
-			+icon(icon)
+			img(src=`img/svg/${icon}.svg`, alt="")
+			//- +icon(icon)
 //- social buttons
 mixin soc()
 	+b.soc
@@ -11,7 +12,13 @@ mixin soc()
 			block
 		else
 			+item-sos('fb')
+			+item-sos('youtube')
 			+item-sos('instagram')
-			+item-sos('telegram')
-
-//- /social buttons 
+mixin soc2()
+	+b.soc
+		if block
+			block
+		else
+			+item-sos('vk')
+			+item-sos('fb')
+			+item-sos('instagram')

@@ -1,11 +1,12 @@
  
 	  
 .soc{
-	margin: 0 rem(-5px);
+	margin: 0 rem(-8px);
 	display: flex;
+	align-items: center;
 	&__item{
 		text-decoration: none !important;
-		margin: 0 rem(5px);
+		margin: 0 rem(8px);
 		vertical-align: middle;
 		@include mt;
 		display: block;
@@ -30,6 +31,95 @@
 		&::before {
 			content: counter(num);
 			counter-increment: num;
+		}
+	}
+}
+
+.card{
+	min-height: calc(100% - var(--mainSpasimg));
+	margin-bottom: var(--mainSpasimg);
+		@include media-breakpoint-up(md) { 
+			&--horizontal{
+				display: flex;
+			}
+		}
+	&__row{
+			--bs-gutter-x: 0;
+	}
+	background-color: $light;
+	border-radius: 8px;
+	position: relative;
+	overflow: hidden;
+	&__label{
+		display: flex;
+		@include roww(rem(32));
+		 
+		&-item{
+		 
+			&:first-child{
+				position: relative;
+				&::after{
+					content: '';
+					position: absolute;
+					right: 0;
+					@include a-cent(y);
+					width: 1px;
+					height: rem(24px);
+					background-color: currentColor;
+				}
+			}
+		}
+	}
+	&__title{
+		font-weight: 600;
+		&.h3{
+
+			line-height: (32 / 24);
+		}
+		line-height: (24 / 16);
+		margin-bottom: rem(18);
+	}
+	&__img-wrap{
+		// height: 100%;
+		min-width: rem(269);
+		display: block;
+		min-height: 119px;
+		@include block(288 , 90);
+	}
+	&__caption{
+		@include media-breakpoint-up(sm) {
+
+			padding: rem(25) rem(24) rem(24);
+		}
+		padding: rem(16);
+	}
+	&__text{
+		padding-top: rem(16);
+		&.text-body{
+			padding-top: rem(40);
+		}
+		&--hidden{
+			&:not(.active){
+
+				max-height: calc(4.2em + #{ rem(40)});
+			}
+			position: relative;
+			overflow: hidden;
+		}
+	}
+	&__toggle-text{
+		font-weight: bold;
+		display: inline-block;
+		cursor: pointer;
+		@extend .text-primary;
+		&::before{
+			content: 'Подробнее';
+		}
+		&.active{
+			&::before{
+				content: 'Скрыть';
+
+			}
 		}
 	}
 }

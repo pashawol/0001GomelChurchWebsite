@@ -1,0 +1,77 @@
+mixin sCalendar()
+	// start sCalendar
+	+b.SECTION.sCalendar.section#sCalendar&attributes(attributes)
+		h2 Календарь
+		+e.wrap
+			+e.calendar-header
+				+e.control-btn--prev
+					+icon('chevron-left')
+				+e.month-name Апрель 2020 г.
+				+e.control-btn--next
+					+icon('chevron-right') 
+			+e.TABLE.calendar-body
+				thead
+					tr
+						td.header-cell Пн
+						td.header-cell Вт
+						td.header-cell Ср
+						td.header-cell Чт
+						td.header-cell Пт
+						td.header-cell Сб
+						td.header-cell Вс
+				tbody
+					tr
+					
+						td.day-of-other-month 
+						td.day-of-other-month 
+						td.default-day.text-primary.strong 1
+						td.default-day.text-primary.strong 2
+						td.default-day.text-primary.strong 3
+						td.default-day.text-primary.strong 4
+						td.default-day.text-primary.strong 5
+					tr
+				 
+						td.default-day.text-primary.strong 6
+						td.default-day.text-primary.strong 7
+						td.default-day.text-primary.strong 8 
+						td.default-day.text-primary.strong 9
+						td.default-day.text-primary.strong 10
+						td.default-day.text-primary.strong 11
+						td.default-day.text-primary.strong 12
+					tr
+						td.default-day.text-primary.strong 13
+						td.default-day.text-primary.strong 14
+						td.default-day.text-primary.strong 15
+						td.default-day.today-cell 16
+						td.default-day 17
+						td.default-day.text-primary.strong 18
+						td.default-day.text-primary.strong 19
+					tr
+					 
+						td.default-day 20
+						td.default-day 21
+						td.default-day 22 
+						td.default-day 23
+						td.default-day 24
+						td.default-day.text-primary.strong 25
+						td.default-day.text-primary.strong 26
+					tr
+						td.default-day 27
+						td.default-day 28
+						td.default-day 29
+						td.default-day 30
+						td
+						td
+						td
+					//- tr
+					//- 	td.day-of-other-month 
+					//- 	td.day-of-other-month 
+					//- 	td.day-of-other-month 
+					//- 	td.day-of-other-month 
+					//- 	td.day-of-other-month 
+					//- 	td.day-of-other-month 
+					//- 	td.day-of-other-month 
+			div
+				a(href="#") Смотреть все новости за месяц
+			
+	// end sCalendar

@@ -1,0 +1,37 @@
+extends layout/main.pug
+
+
+include ../blocks/sContent/_sContent.pug
+include ../blocks/sContact/_sContact.pug
+include ../blocks/sNews/_sNews.pug
+include ../blocks/sBanners/_sBanners.pug
+include ../blocks/sSchedule/_sSchedule.pug
+include ../blocks/sCalendar/_sCalendar.pug
+include ../blocks/sProfile/_sProfile.pug
+
+block variables
+	- let  mainPage= null
+block title
+	- let  title= 'Правящий Архиерей'
+	title= title
+block pagecontent
+	//- +b.alert.bg-danger Вниманию духовенства Гомеля! Общая исповедь состоится 12&nbsp;апреля.
+	//- +b.alert.bg-warning Вниманию духовенства Гомеля! Божественная литургия состоится 19&nbsp;мая.
+	+header()
+		+topLine()
+			+mob-mnu()
+		+top-nav()
+	.container
+		+breadcrumb('Главная', title)
+		.row--main.row
+			.col-lg-8
+				h1 Архиепископ Гомельский и Жлобинский Стефан
+				+sProfile
+			aside.col-lg-4
+				+sSchedule
+				//- +sCalendar
+	+sBanners-sm()
+	+footer()
+
+
+	

@@ -40,6 +40,27 @@ $output-bourbon-deprecation-warnings: false;
 // @import "./node_modules/bootstrap/scss/card";
 @import "./node_modules/bootstrap/scss/breadcrumb";
 .breadcrumb {
+	margin-top: rem(-7);
+	&-item:not(.active){
+		a{
+
+			color: $secondary;
+		}
+	}
+	&-item+.breadcrumb-item {
+		&::before{
+			content: '';
+			background-image: url(../img/svg/chevron-right.svg);
+			width: rem(6);
+			height: rem(10);
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+			background-position: center center;
+			position: relative;
+			top: rem(4);
+			margin-right: rem(10);
+		}
+	}
 	.active {
 		a {
 			// color: $breadcrumb-active-color;
@@ -49,6 +70,25 @@ $output-bourbon-deprecation-warnings: false;
 }
 @import "./node_modules/bootstrap/scss/pagination";
 
+.pagination-wrapper {
+	font-weight: bold;
+	.page-numbers{
+		min-width: rem(48);
+		text-align: center;
+		@include mt;
+		cursor: pointer;
+	}
+	.pagination-dots{
+		background: none !important;
+		border: none !important;
+		margin-left: 0;
+		margin-right: 0;
+		min-width: 1px;
+	}
+	.icon{
+		font-size: rem(14);
+	}
+}
 .pagination-wrapper ul {
 	@extend .pagination;
 }
@@ -62,9 +102,9 @@ $output-bourbon-deprecation-warnings: false;
 
 	.current {
 		z-index: 1;
-		// color: $pagination-active-color;
-		// background-color: $pagination-active-bg;
-		// border-color: $pagination-active-border-color;
+		color: $pagination-active-color !important;
+		background-color: $pagination-active-bg !important;
+		border-color: $pagination-active-border-color !important;
 	}
 }
 

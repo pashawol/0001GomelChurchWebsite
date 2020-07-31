@@ -1,23 +1,36 @@
 :root {
 	--animate-delay: 1.2s;
-	--fontSizeBase: #{$em-base};
+	@include media-breakpoint-up(sm) {
+	--mainSpasimg:#{rem(40)};
+}
+--mainSpasimg:#{rem(24)};
+	@include media-breakpoint-up(xl) {
+		
+		--fontSizeBase: #{$em-base};
+	}
+	--fontSizeBase: 14px;
+	@include media-breakpoint-up(xxl) {  
+		--navGutter: #{rem(32)};
+	}
+	 
+		--navGutter: #{rem(20)}; 
+
 	@include media-breakpoint-up(md) {
 
-		--sPT: #{rem(80)};
-		--sPB: #{rem(90)};
-		--sTPB: #{rem(40)};
+		--sPT: #{rem(76 / 2)};
+		--sTPB: #{rem(30)};
 	}
+	--sPT: #{rem(48 / 2)}; 
+	--sPB: var(--sPT);
 
-	--sPT: #{rem(80 / 2)};
-	--sPB: #{rem(90 / 2)};
-	--sTPB: #{rem(40 / 2)};
+	--sTPB: #{rem(20)};
 
 
-		--swiperArrowSize: #{rem(68)};
-		--swiperArrowPosition: calc(-1 * var(--swiperArrowSize) / 2);
-		--swiperBorderColorDef: var(--bs-primary);
-		--swiperColorDef: var(--bs-primary);
-		--swiperBgDef: #ffffff;
+		--swiperArrowSize: #{rem(48)};
+		--swiperArrowPosition: calc(var(--swiperArrowSize) / 2);
+		--swiperBorderColorDef: transparent;
+		--swiperColorDef: #fff;
+		--swiperBgDef: rgba(34, 34, 34, 0.5);
 	
 }
 

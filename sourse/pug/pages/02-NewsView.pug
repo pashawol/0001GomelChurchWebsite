@@ -1,0 +1,38 @@
+extends layout/main.pug
+
+
+include ../blocks/sContent/_sContent.pug
+include ../blocks/sContact/_sContact.pug
+include ../blocks/sNews/_sNews.pug
+include ../blocks/sBanners/_sBanners.pug
+include ../blocks/sSchedule/_sSchedule.pug
+include ../blocks/sCalendar/_sCalendar.pug
+include ../blocks/sProfile/_sProfile.pug
+
+block variables
+	- let  mainPage= null
+block title
+	- let  title= 'Владыка Стефан принял участие в торжественном митинге посвященном 75-летию Великой Победы'
+	title= title
+block pagecontent
+	//- +b.alert.bg-danger Вниманию духовенства Гомеля! Общая исповедь состоится 12&nbsp;апреля.
+	//- +b.alert.bg-warning Вниманию духовенства Гомеля! Божественная литургия состоится 19&nbsp;мая.
+	+header()
+		+topLine()
+			+mob-mnu()
+		+top-nav()
+	.container
+		+breadcrumb('Главная', 'Епархиальная жизнь', title)
+		.row--main.row
+			.col-lg-8
+				h1 Владыка Стефан принял участие в&nbsp;торжественном митинге посвященном 75-летию Великой&nbsp;Победы
+				+sContent
+				+sNews22()
+			aside.col-lg-4
+				//- +sSchedule
+				+sCalendar
+	+sBanners-sm()
+	+footer()
+
+
+	

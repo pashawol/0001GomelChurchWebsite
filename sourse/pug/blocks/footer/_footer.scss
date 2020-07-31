@@ -1,7 +1,41 @@
 .footer {
-		
+		background-color: $primary;
+		@include media-breakpoint-up(xl) {
+
+			--sPT: #{rem(40)};
+		}
+		padding: calc(var(--sPT) * 2) 0;
+		color: #ffffff;
+		&__nav{
+			@include media-breakpoint-up(lg) {
+				columns: 4;
+			}
+			
+			@include media-breakpoint-up(md) {
+				columns: 3;
+			}
+			
+			@include media-breakpoint-up(sm) {
+				columns: 2;
+			}
 
 
+			list-style: none;
+			margin-bottom: calc(var(--sPT) * 2) ;
+			;
+		}
+		&__item{
+			margin-bottom: rem(24);
+		}
+		a{
+			color: #ffffff !important;
+			font-weight: 500;
+		}
+
+		.soc{
+			justify-content: center;
+			margin-bottom: 40px;
+		}
 // 
 @include media-breakpoint-up(xl) {}
 
@@ -9,7 +43,8 @@
 
 @include media-breakpoint-up(md) {}
 
-@include media-breakpoint-up(sm) {}
+@include media-breakpoint-up(sm) {text-align: left;}
+text-align: center;
 
 @include media-breakpoint-up(xs) {}
 
@@ -37,7 +72,13 @@
 
 @include media-breakpoint-down(md) {}
 
-@include media-breakpoint-down(sm) {}
+@include media-breakpoint-down(sm) {
+	&__copy{
+		margin-left: auto;
+		margin-right: auto;
+		max-width: 192px;
+	}
+}
 
 @include media-breakpoint-down(xs) {}
 }

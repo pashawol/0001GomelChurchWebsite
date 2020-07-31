@@ -11,7 +11,6 @@ var JSCCommon = {
 	btnToggleMenuMobile: [].slice.call(document.querySelectorAll(".toggle-menu-mobile--js")),
 	menuMobile: document.querySelector(".menu-mobile--js"),
 	menuMobileLink: [].slice.call(document.querySelectorAll(".menu-mobile--js ul li a")),
-	body: document.querySelector("body"),
 	modalCall: function modalCall() {
 		$(".link-modal").fancybox({
 			arrows: false,
@@ -38,66 +37,75 @@ var JSCCommon = {
 			$.fancybox.close();
 		});
 		$.fancybox.defaults.backFocus = false;
-		$(".link-modal").click(function () {
-			var th = $(this);
-			var modal = $(th.attr('href'));
-			var content = {
-				title: th.data('title'),
-				text: th.data('text'),
-				btn: th.data('btn'),
-				order: th.data('order')
-			};
-			modal.find('.ttu').html(content.title);
-			modal.find('.after-headline').html(content.text);
-			modal.find('.btn').val(content.btn);
-			modal.find('.order').val(content.order);
-		});
+		var linkModal = document.querySelectorAll('.link-modal');
+
+		if (linkModal) {
+			linkModal.forEach(function (element) {
+				element.addEventListener('click', function () {
+					var modal = document.querySelector(element.getAttribute("href"));
+					var data = element.dataset;
+
+					function setValue(val, elem) {
+						if (elem && val) {
+							var el = modal.querySelector(elem);
+							el.tagName == "INPUT" ? el.value = val : el.innerHTML = val;
+							console.log(modal.querySelector(elem).tagName);
+						}
+					}
+
+					setValue(data.title, '.ttu');
+					setValue(data.text, '.after-headline');
+					setValue(data.btn, '.btn');
+					setValue(data.order, '.order');
+				});
+			});
+		}
 	},
-	// /magnificPopupCall
+	// /modalCall
 	toggleMenu: function toggleMenu() {
 		var _this = this;
 
-		if (_this.btnToggleMenuMobile) {
-			_this.btnToggleMenuMobile.forEach(function (element) {
+		if (this.btnToggleMenuMobile) {
+			this.btnToggleMenuMobile.forEach(function (element) {
 				element.addEventListener('click', function () {
 					_this.btnToggleMenuMobile.forEach(function (element) {
-						element.classList.toggle("on");
+						return element.classList.toggle("on");
 					});
 
 					_this.menuMobile.classList.toggle("active");
 
-					_this.body.classList.toggle("fixed");
-
+					document.body.classList.toggle("fixed");
 					return false;
 				});
 			});
 		}
 	},
 	closeMenu: function closeMenu() {
-		var _this = this;
-
-		if (_this.menuMobile) {
-			_this.btnToggleMenuMobile.forEach(function (element) {
+		if (this.menuMobile) {
+			this.btnToggleMenuMobile.forEach(function (element) {
 				element.classList.remove("on");
 			});
-
-			_this.menuMobile.classList.remove("active");
-
-			_this.body.classList.remove("fixed");
+			this.menuMobile.classList.remove("active");
+			document.body.classList.remove("fixed");
 		}
 	},
 	mobileMenu: function mobileMenu() {
-		// закрыть/открыть мобильное меню
-		var _this = this;
+		var _this2 = this;
 
-		if (_this.menuMobileLink) {
-			_this.toggleMenu();
-
+		if (this.menuMobileLink) {
+			this.toggleMenu();
 			document.addEventListener('mouseup', function (event) {
 				var container = event.target.closest(".menu-mobile--js.active"); // (1)
 
 				if (!container) {
-					_this.closeMenu();
+					_this2.closeMenu();
+				}
+			}, {
+				passive: true
+			});
+			window.addEventListener('resize', function () {
+				if (window.matchMedia("(min-width: 992px)").matches) {
+					JSCCommon.closeMenu();
 				}
 			}, {
 				passive: true
@@ -114,17 +122,12 @@ var JSCCommon = {
 		};
 		tabs.Btn.forEach(function (element, index) {
 			element.addEventListener('click', function () {
-				var _this = this;
-
-				if (!_this.classList.contains('active')) {
-					var siblings = _this.parentNode.querySelector(".".concat(tab, "__btn.active"));
-
+				if (!element.classList.contains('active')) {
+					var siblings = element.parentNode.querySelector(".".concat(tab, "__btn.active"));
 					var siblingsContent = tabs.Content[index].parentNode.querySelector(".".concat(tab, "__content.active"));
 					siblings.classList.remove('active');
 					siblingsContent.classList.remove('active');
-
-					_this.classList.add('active');
-
+					element.classList.add('active');
 					tabs.Content[index].classList.add('active');
 				}
 			});
@@ -149,66 +152,8 @@ var JSCCommon = {
 		var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
 
 		if (isIE11) {
-			$("body").prepend("<p   class=\"browsehappy container\">\u041A \u0441\u043E\u0436\u0430\u043B\u0435\u043D\u0438\u044E, \u0432\u044B \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442\u0435 \u0443\u0441\u0442\u0430\u0440\u0435\u0432\u0448\u0438\u0439 \u0431\u0440\u0430\u0443\u0437\u0435\u0440. \u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430, <a href=\"http://browsehappy.com/\" target=\"_blank\">\u043E\u0431\u043D\u043E\u0432\u0438\u0442\u0435 \u0432\u0430\u0448 \u0431\u0440\u0430\u0443\u0437\u0435\u0440</a>, \u0447\u0442\u043E\u0431\u044B \u0443\u043B\u0443\u0447\u0448\u0438\u0442\u044C \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C, \u043A\u0430\u0447\u0435\u0441\u0442\u0432\u043E \u043E\u0442\u043E\u0431\u0440\u0430\u0436\u0430\u0435\u043C\u043E\u0433\u043E \u043C\u0430\u0442\u0435\u0440\u0438\u0430\u043B\u0430 \u0438 \u043F\u043E\u0432\u044B\u0441\u0438\u0442\u044C \u0431\u0435\u0437\u043E\u043F\u0430\u0441\u043D\u043E\u0441\u0442\u044C.</p>");
+			$("body").prepend('<p   class="browsehappy container">К сожалению, вы используете устаревший браузер. Пожалуйста, <a href="http://browsehappy.com/" target="_blank">обновите ваш браузер</a>, чтобы улучшить производительность, качество отображаемого материала и повысить безопасность.</p>');
 		}
-	},
-	sendForm: function sendForm() {
-		var gets = function () {
-			var a = window.location.search;
-			var b = new Object();
-			var c;
-			a = a.substring(1).split("&");
-
-			for (var i = 0; i < a.length; i++) {
-				c = a[i].split("=");
-				b[c[0]] = c[1];
-			}
-
-			return b;
-		}(); // form
-
-
-		$("form").submit(function (e) {
-			e.preventDefault();
-			var th = $(this);
-			var data = th.serialize();
-			th.find('.utm_source').val(decodeURIComponent(gets['utm_source'] || ''));
-			th.find('.utm_term').val(decodeURIComponent(gets['utm_term'] || ''));
-			th.find('.utm_medium').val(decodeURIComponent(gets['utm_medium'] || ''));
-			th.find('.utm_campaign').val(decodeURIComponent(gets['utm_campaign'] || ''));
-			$.ajax({
-				url: 'action.php',
-				type: 'POST',
-				data: data
-			}).done(function (data) {
-				$.fancybox.close();
-				$.fancybox.open({
-					src: '#modal-thanks',
-					type: 'inline'
-				}); // window.location.replace("/thanks.html");
-
-				setTimeout(function () {
-					// Done Functions
-					th.trigger("reset"); // $.magnificPopup.close();
-					// ym(53383120, 'reachGoal', 'zakaz');
-					// yaCounter55828534.reachGoal('zakaz');
-				}, 4000);
-			}).fail(function () {});
-		});
-	},
-	heightwindow: function heightwindow() {
-		// First we get the viewport height and we multiple it by 1% to get a value for a vh unit
-		var vh = window.innerHeight * 0.01; // Then we set the value in the --vh custom property to the root of the document
-
-		document.documentElement.style.setProperty('--vh', "".concat(vh, "px")); // We listen to the resize event
-
-		window.addEventListener('resize', function () {
-			// We execute the same script as before
-			var vh = window.innerHeight * 0.01;
-			document.documentElement.style.setProperty('--vh', "".concat(vh, "px"));
-		}, {
-			passive: true
-		});
 	},
 	animateScroll: function animateScroll() {
 		// листалка по стр
@@ -232,15 +177,34 @@ function eventHandler() {
 	JSCCommon.mobileMenu();
 	JSCCommon.inputMask();
 	JSCCommon.ifie();
-	JSCCommon.sendForm();
-	JSCCommon.heightwindow();
 	JSCCommon.animateScroll(); // JSCCommon.CustomInputFile();
 	// добавляет подложку для pixel perfect
 
-	var screenName = 'main.jpg';
+	var screenName = '02.jpg';
 	screenName ? $(".main-wrapper").after("<div class=\"pixel-perfect\" style=\"background-image: url(screen/".concat(screenName, ");\"></div>")) : ''; // /добавляет подложку для pixel perfect
 
-	function heightses() {
+	var searchToggle = document.querySelectorAll('.btn-search--js');
+	var searchBlock = document.querySelector('.search-block--js');
+
+	if (searchToggle && searchBlock) {
+		searchToggle.forEach(function (element) {
+			element.addEventListener('click', function () {
+				return searchBlock.classList.toggle('show');
+			});
+		});
+	}
+
+	var toggleText = document.querySelectorAll(".card__toggle-text");
+	toggleText.forEach(function (element) {
+		element.addEventListener('click', function () {
+			var hiddenText = this.parentNode.parentNode.querySelector('.card__text--hidden');
+			console.log(hiddenText);
+			this.classList.toggle('active');
+			hiddenText.classList.toggle('active');
+		});
+	});
+
+	function whenResize() {
 		var topH = document.querySelector('header').scrollHeight;
 		var stickyElement = document.querySelector('.top-nav');
 
@@ -250,30 +214,23 @@ function eventHandler() {
 			} else {
 				stickyElement.classList.remove('fixed');
 			}
-		}; // скрывает моб меню 
-
-
-		if (window.matchMedia("(min-width: 992px)").matches) {
-			JSCCommon.closeMenu();
-		}
+		};
 	}
 
 	window.addEventListener('resize', function () {
-		heightses();
+		whenResize();
 	}, {
 		passive: true
 	});
-	heightses();
+	whenResize();
 	var defaultSl = (_defaultSl = {
 		spaceBetween: 0,
 		lazy: {
-			loadPrevNext: true
+			loadPrevNext: true,
+			loadPrevNextAmount: 3
 		},
 		watchOverflow: true
-	}, _defineProperty(_defaultSl, "spaceBetween", 0), _defineProperty(_defaultSl, "loop", true), _defineProperty(_defaultSl, "navigation", {
-		nextEl: '.swiper-button-next',
-		prevEl: '.swiper-button-prev'
-	}), _defineProperty(_defaultSl, "pagination", {
+	}, _defineProperty(_defaultSl, "spaceBetween", 0), _defineProperty(_defaultSl, "loop", true), _defineProperty(_defaultSl, "pagination", {
 		el: ' .swiper-pagination',
 		type: 'bullets',
 		clickable: true // renderBullet: function (index, className) {
@@ -281,13 +238,61 @@ function eventHandler() {
 		// }
 
 	}), _defaultSl);
-	var swiper4 = new Swiper('.color-slider', _objectSpread(_objectSpread({}, defaultSl), {}, {
-		slidesPerView: 'auto',
+	var BannerSlider = '.sBanners__slider--js';
+	var swiper4 = new Swiper(BannerSlider, _objectSpread(_objectSpread({}, defaultSl), {}, {
+		slidesPerView: 1,
+		navigation: {
+			nextEl: $(BannerSlider).parent().find('.swiper-button-next'),
+			prevEl: $(BannerSlider).parent().find('.swiper-button-prev')
+		},
+		pagination: {
+			el: $(BannerSlider).parent().find('.swiper-pagination'),
+			type: 'bullets',
+			clickable: true
+		},
+		spaceBetween: 10,
+		breakpoints: {
+			576: {
+				slidesPerView: 2
+			},
+			992: {
+				slidesPerView: 3,
+				spaceBetween: 40
+			}
+		}
+	}));
+	var thumbs = document.querySelector('.gallery-thumbs');
+	var galleryThumbs = new Swiper(thumbs, _objectSpread(_objectSpread({}, defaultSl), {}, {
+		// spaceBetween: 10,
+		spaceBetween: 16,
+		slidesPerView: 3,
+		loop: true,
 		freeMode: true,
-		loopFillGroupWithBlank: true,
-		touchRatio: 0.2,
-		slideToClickedSlide: true,
-		freeModeMomentum: true
+		loopedSlides: 5,
+		//looped slides should be the same
+		watchSlidesVisibility: true,
+		watchSlidesProgress: true,
+		breakpoints: {
+			576: {
+				slidesPerView: 4
+			},
+			768: {
+				slidesPerView: 6
+			}
+		},
+		navigation: {
+			nextEl: thumbs.querySelector('.swiper-button-next'),
+			prevEl: thumbs.querySelector('.swiper-button-prev')
+		}
+	}));
+	var galleryTop = new Swiper('.gallery-top', _objectSpread(_objectSpread({}, defaultSl), {}, {
+		spaceBetween: 10,
+		loop: true,
+		loopedSlides: 6,
+		//looped slides should be the same
+		thumbs: {
+			swiper: galleryThumbs
+		}
 	})); // modal window
 }
 
