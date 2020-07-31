@@ -3,6 +3,7 @@
 	.header {
 		position: relative;
 		padding-bottom: var(--sPB);
+		z-index: 200;
 		 
 	@include media-breakpoint-up(xl) {}
 	@include media-breakpoint-up(lg) {}

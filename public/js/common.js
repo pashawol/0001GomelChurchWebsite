@@ -37,29 +37,6 @@ var JSCCommon = {
 			$.fancybox.close();
 		});
 		$.fancybox.defaults.backFocus = false;
-		var linkModal = document.querySelectorAll('.link-modal');
-
-		if (linkModal) {
-			linkModal.forEach(function (element) {
-				element.addEventListener('click', function () {
-					var modal = document.querySelector(element.getAttribute("href"));
-					var data = element.dataset;
-
-					function setValue(val, elem) {
-						if (elem && val) {
-							var el = modal.querySelector(elem);
-							el.tagName == "INPUT" ? el.value = val : el.innerHTML = val;
-							console.log(modal.querySelector(elem).tagName);
-						}
-					}
-
-					setValue(data.title, '.ttu');
-					setValue(data.text, '.after-headline');
-					setValue(data.btn, '.btn');
-					setValue(data.order, '.order');
-				});
-			});
-		}
 	},
 	// /modalCall
 	toggleMenu: function toggleMenu() {
@@ -90,19 +67,8 @@ var JSCCommon = {
 		}
 	},
 	mobileMenu: function mobileMenu() {
-		var _this2 = this;
-
 		if (this.menuMobileLink) {
 			this.toggleMenu();
-			document.addEventListener('mouseup', function (event) {
-				var container = event.target.closest(".menu-mobile--js.active"); // (1)
-
-				if (!container) {
-					_this2.closeMenu();
-				}
-			}, {
-				passive: true
-			});
 			window.addEventListener('resize', function () {
 				if (window.matchMedia("(min-width: 992px)").matches) {
 					JSCCommon.closeMenu();
@@ -113,58 +79,12 @@ var JSCCommon = {
 		}
 	},
 	// /mobileMenu
-	// табы  .
-	tabscostume: function tabscostume(tab) {
-		var tabs = {
-			Btn: [].slice.call(document.querySelectorAll(".".concat(tab, "__btn"))),
-			BtnParent: [].slice.call(document.querySelectorAll(".".concat(tab, "__caption"))),
-			Content: [].slice.call(document.querySelectorAll(".".concat(tab, "__content")))
-		};
-		tabs.Btn.forEach(function (element, index) {
-			element.addEventListener('click', function () {
-				if (!element.classList.contains('active')) {
-					var siblings = element.parentNode.querySelector(".".concat(tab, "__btn.active"));
-					var siblingsContent = tabs.Content[index].parentNode.querySelector(".".concat(tab, "__content.active"));
-					siblings.classList.remove('active');
-					siblingsContent.classList.remove('active');
-					element.classList.add('active');
-					tabs.Content[index].classList.add('active');
-				}
-			});
-		}); // $('.' + tab + '__caption').on('click', '.' + tab + '__btn:not(.active)', function (e) {
-		// 	$(this)
-		// 		.addClass('active').siblings().removeClass('active')
-		// 		.closest('.' + tab).find('.' + tab + '__content').hide().removeClass('active')
-		// 		.eq($(this).index()).fadeIn().addClass('active');
-		// });
-	},
-	// /табы
-	inputMask: function inputMask() {
-		// mask for input
-		var InputTel = [].slice.call(document.querySelectorAll('input[type="tel"]'));
-		InputTel.forEach(function (element) {
-			element.setAttribute("pattern", "[+][0-9]{1}[(][0-9]{3}[)][0-9]{3}-[0-9]{2}-[0-9]{2}");
-		});
-		Inputmask("+9(999)999-99-99").mask(InputTel);
-	},
-	// /inputMask
 	ifie: function ifie() {
 		var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
 
 		if (isIE11) {
 			$("body").prepend('<p   class="browsehappy container">К сожалению, вы используете устаревший браузер. Пожалуйста, <a href="http://browsehappy.com/" target="_blank">обновите ваш браузер</a>, чтобы улучшить производительность, качество отображаемого материала и повысить безопасность.</p>');
 		}
-	},
-	animateScroll: function animateScroll() {
-		// листалка по стр
-		$(" .top-nav li a, .scroll-link").click(function () {
-			var elementClick = $(this).attr("href");
-			var destination = $(elementClick).offset().top;
-			$('html, body').animate({
-				scrollTop: destination
-			}, 1100);
-			return false;
-		});
 	}
 };
 var $ = jQuery;
@@ -173,15 +93,14 @@ function eventHandler() {
 	var _defaultSl;
 
 	JSCCommon.modalCall();
-	JSCCommon.tabscostume('tabs');
 	JSCCommon.mobileMenu();
-	JSCCommon.inputMask();
-	JSCCommon.ifie();
-	JSCCommon.animateScroll(); // JSCCommon.CustomInputFile();
+	JSCCommon.ifie(); // JSCCommon.CustomInputFile();
 	// добавляет подложку для pixel perfect
-
-	var screenName = '02.jpg';
-	screenName ? $(".main-wrapper").after("<div class=\"pixel-perfect\" style=\"background-image: url(screen/".concat(screenName, ");\"></div>")) : ''; // /добавляет подложку для pixel perfect
+	// let screenName = '02.jpg';
+	// screenName
+	// 	? $(".main-wrapper").after(`<div class="pixel-perfect" style="background-image: url(screen/${screenName});"></div>`)
+	// 	: '';
+	// /добавляет подложку для pixel perfect
 
 	var searchToggle = document.querySelectorAll('.btn-search--js');
 	var searchBlock = document.querySelector('.search-block--js');
@@ -203,26 +122,19 @@ function eventHandler() {
 			hiddenText.classList.toggle('active');
 		});
 	});
+	var liHasChildren = document.querySelector('.menu-mobile').querySelectorAll('.nav__item--has-child');
 
-	function whenResize() {
-		var topH = document.querySelector('header').scrollHeight;
-		var stickyElement = document.querySelector('.top-nav');
-
-		window.onscroll = function () {
-			if ($(window).scrollTop() > topH) {
-				stickyElement.classList.add('fixed');
-			} else {
-				stickyElement.classList.remove('fixed');
-			}
-		};
+	if (liHasChildren) {
+		liHasChildren.forEach(function (element) {
+			element.insertAdjacentHTML("beforeend", '<div class="toggle-sub-menu"></div>');
+		});
+		document.querySelectorAll('.toggle-sub-menu').forEach(function (element) {
+			element.addEventListener('click', function () {
+				this.parentNode.classList.toggle('show-child');
+			});
+		});
 	}
 
-	window.addEventListener('resize', function () {
-		whenResize();
-	}, {
-		passive: true
-	});
-	whenResize();
 	var defaultSl = (_defaultSl = {
 		spaceBetween: 0,
 		lazy: {
@@ -233,10 +145,7 @@ function eventHandler() {
 	}, _defineProperty(_defaultSl, "spaceBetween", 0), _defineProperty(_defaultSl, "loop", true), _defineProperty(_defaultSl, "pagination", {
 		el: ' .swiper-pagination',
 		type: 'bullets',
-		clickable: true // renderBullet: function (index, className) {
-		// 	return '<span class="' + className + '">' + (index + 1) + '</span>';
-		// }
-
+		clickable: true
 	}), _defaultSl);
 	var BannerSlider = '.sBanners__slider--js';
 	var swiper4 = new Swiper(BannerSlider, _objectSpread(_objectSpread({}, defaultSl), {}, {

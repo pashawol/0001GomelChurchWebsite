@@ -10,12 +10,9 @@ mixin mob-mnu()
 	//- h1= dataJson['lala'] 
 	
 	+b.menu-mobile--js.d-lg-none
-		+b.toggle-menu-mobile--js
-			span
 		+e.inner
-		
-			+mnu()
-			.text-right
+			.container
+				+mnu()
 	//  мобильное меню
 mixin top-nav() 
 	// start top-nav

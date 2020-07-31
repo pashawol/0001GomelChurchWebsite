@@ -31,30 +31,7 @@ const JSCCommon = {
 			$.fancybox.close();
 		})
 		$.fancybox.defaults.backFocus = false;
-		const linkModal = document.querySelectorAll('.link-modal');
-		if (linkModal) {
-			linkModal.forEach(element => {
-				element.addEventListener('click', () => {  
-					let modal = document.querySelector(element.getAttribute("href"));
-					const data = element.dataset;
-					
-					function setValue(val, elem) {
-						if (elem && val) {
-							const el = modal.querySelector(elem)
-							el.tagName == "INPUT"
-								? el.value = val
-								: el.innerHTML = val;
-							console.log(modal.querySelector(elem).tagName)
-						}
-					}
-					setValue(data.title, '.ttu');
-					setValue(data.text, '.after-headline');
-					setValue(data.btn, '.btn');
-					setValue(data.order, '.order'); 
-				})
-			})
-		 
-		}
+  
 	},
 	// /modalCall
 	toggleMenu() {
@@ -82,14 +59,7 @@ const JSCCommon = {
 	},
 	mobileMenu() {
 		if (this.menuMobileLink) {
-			this.toggleMenu();
-			document.addEventListener('mouseup', (event) => {
-				let container = event.target.closest(".menu-mobile--js.active"); // (1)
-				if (!container) {
-					this.closeMenu();
-				}
-			}, { passive: true });
-
+			this.toggleMenu(); 
 			window.addEventListener('resize', () => {
 				if (window.matchMedia("(min-width: 992px)").matches) {
 					JSCCommon.closeMenu();
@@ -99,46 +69,6 @@ const JSCCommon = {
 	},
 	// /mobileMenu
 
-	// табы  .
-	tabscostume(tab) {
-
-		let tabs = {
-			Btn: [].slice.call(document.querySelectorAll(`.${tab}__btn`)),
-			BtnParent: [].slice.call(document.querySelectorAll(`.${tab}__caption`)),
-			Content: [].slice.call(document.querySelectorAll(`.${tab}__content`)),
-		}
-		tabs.Btn.forEach((element, index) => {
-			element.addEventListener('click', () => {
-				if (!element.classList.contains('active')) {
-					let siblings = element.parentNode.querySelector(`.${tab}__btn.active`);
-					let siblingsContent = tabs.Content[index].parentNode.querySelector(`.${tab}__content.active`);
-					siblings.classList.remove('active');
-					siblingsContent.classList.remove('active')
-					element.classList.add('active');
-					tabs.Content[index].classList.add('active');
-				} 
-			})
-		})
-		// $('.' + tab + '__caption').on('click', '.' + tab + '__btn:not(.active)', function (e) {
-		// 	$(this)
-		// 		.addClass('active').siblings().removeClass('active')
-		// 		.closest('.' + tab).find('.' + tab + '__content').hide().removeClass('active')
-		// 		.eq($(this).index()).fadeIn().addClass('active');
-
-		// });
-
-	},
-	// /табы
-
-	inputMask() {
-		// mask for input
-		let InputTel = [].slice.call(document.querySelectorAll('input[type="tel"]'));
-		InputTel.forEach(function (element) {
-			element.setAttribute("pattern", "[+][0-9]{1}[(][0-9]{3}[)][0-9]{3}-[0-9]{2}-[0-9]{2}")
-		});
-		Inputmask("+9(999)999-99-99").mask(InputTel);
-	},
-	// /inputMask
 	ifie() {
 		var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
 		if (isIE11) {
@@ -146,35 +76,23 @@ const JSCCommon = {
 
 		}
 	},
- 
-	animateScroll() {
-		// листалка по стр
-		$(" .top-nav li a, .scroll-link").click(function () {
-			const elementClick = $(this).attr("href");
-			const destination = $(elementClick).offset().top;
 
-			$('html, body').animate({ scrollTop: destination }, 1100);
 
-			return false;
-		});
-	}
 };
 const $ = jQuery;
 
 function eventHandler() {
 	JSCCommon.modalCall();
-	JSCCommon.tabscostume('tabs');
+
 	JSCCommon.mobileMenu();
-	JSCCommon.inputMask();
-	JSCCommon.ifie(); 
-	JSCCommon.animateScroll();
+	JSCCommon.ifie();
 
 	// JSCCommon.CustomInputFile();
 	// добавляет подложку для pixel perfect
-	let screenName = '02.jpg';
-	screenName
-		? $(".main-wrapper").after(`<div class="pixel-perfect" style="background-image: url(screen/${screenName});"></div>`)
-		: '';
+	// let screenName = '02.jpg';
+	// screenName
+	// 	? $(".main-wrapper").after(`<div class="pixel-perfect" style="background-image: url(screen/${screenName});"></div>`)
+	// 	: '';
 	// /добавляет подложку для pixel perfect
 
 
@@ -182,17 +100,17 @@ function eventHandler() {
 	const searchBlock = document.querySelector('.search-block--js');
 
 	if (searchToggle && searchBlock) {
-		
+
 		searchToggle.forEach((element) => {
-			
+
 			element.addEventListener('click', () => searchBlock.classList.toggle('show'))
 		})
-	 
+
 	}
 
 	const toggleText = document.querySelectorAll(".card__toggle-text");
 	toggleText.forEach(element => {
-		element.addEventListener('click', function() {
+		element.addEventListener('click', function () {
 			const hiddenText = this.parentNode.parentNode.querySelector('.card__text--hidden')
 			console.log(hiddenText);
 			this.classList.toggle('active');
@@ -200,28 +118,18 @@ function eventHandler() {
 		})
 	})
 
-	function whenResize() {
-
-		const topH = document.querySelector('header').scrollHeight;
-		let stickyElement = document.querySelector('.top-nav')
-		window.onscroll = () => {
-			if ($(window).scrollTop() > topH) {
-
-				stickyElement.classList.add('fixed');
-			} else {
-				stickyElement.classList.remove('fixed');
-			}
-		};
-
+	var liHasChildren = document.querySelector('.menu-mobile').querySelectorAll('.nav__item--has-child')
+	if (liHasChildren) { 
+		liHasChildren.forEach(function (element) { 
+			element.insertAdjacentHTML("beforeend",'<div class="toggle-sub-menu"></div>');
+		
+		})
+		document.querySelectorAll('.toggle-sub-menu').forEach(function (element) {
+			element.addEventListener('click', function () {
+				this.parentNode.classList.toggle('show-child');
+			})
+		})
 	}
-
-	window.addEventListener('resize', () => {
-		whenResize();
-
-	}, { passive: true });
-
-	whenResize();
-
 
 	let defaultSl = {
 		spaceBetween: 0,
@@ -232,14 +140,11 @@ function eventHandler() {
 		watchOverflow: true,
 		spaceBetween: 0,
 		loop: true,
-	
+
 		pagination: {
 			el: ' .swiper-pagination',
 			type: 'bullets',
 			clickable: true,
-			// renderBullet: function (index, className) {
-			// 	return '<span class="' + className + '">' + (index + 1) + '</span>';
-			// }
 		},
 	}
 	let BannerSlider = '.sBanners__slider--js';
@@ -255,10 +160,10 @@ function eventHandler() {
 		pagination: {
 			el: $(BannerSlider).parent().find('.swiper-pagination'),
 			type: 'bullets',
-			clickable: true, 
+			clickable: true,
 		},
-		spaceBetween: 10, 
-		breakpoints: { 
+		spaceBetween: 10,
+		breakpoints: {
 			576: {
 				slidesPerView: 2
 			},
@@ -280,7 +185,7 @@ function eventHandler() {
 		watchSlidesVisibility: true,
 		watchSlidesProgress: true,
 		breakpoints: {
-			
+
 			576: {
 				slidesPerView: 4,
 			},
@@ -298,7 +203,7 @@ function eventHandler() {
 		spaceBetween: 10,
 		loop: true,
 		loopedSlides: 6, //looped slides should be the same
-		
+
 		thumbs: {
 			swiper: galleryThumbs,
 		},
