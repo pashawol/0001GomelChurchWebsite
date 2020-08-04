@@ -67,8 +67,19 @@ var JSCCommon = {
 		}
 	},
 	mobileMenu: function mobileMenu() {
+		var _this2 = this;
+
 		if (this.menuMobileLink) {
 			this.toggleMenu();
+			document.addEventListener('mouseup', function (event) {
+				var container = event.target.closest(".menu-mobile--js.active"); // (1)
+
+				if (!container) {
+					_this2.closeMenu();
+				}
+			}, {
+				passive: true
+			});
 			window.addEventListener('resize', function () {
 				if (window.matchMedia("(min-width: 992px)").matches) {
 					JSCCommon.closeMenu();
@@ -170,8 +181,7 @@ function eventHandler() {
 			}
 		}
 	}));
-	var thumbs = document.querySelector('.gallery-thumbs');
-	var galleryThumbs = new Swiper(thumbs, _objectSpread(_objectSpread({}, defaultSl), {}, {
+	var galleryThumbs = new Swiper('.gallery-thumbs', _objectSpread(_objectSpread({}, defaultSl), {}, {
 		// spaceBetween: 10,
 		spaceBetween: 16,
 		slidesPerView: 3,
@@ -190,8 +200,8 @@ function eventHandler() {
 			}
 		},
 		navigation: {
-			nextEl: thumbs.querySelector('.swiper-button-next'),
-			prevEl: thumbs.querySelector('.swiper-button-prev')
+			nextEl: $('.gallery-thumbs').find('.swiper-button-next'),
+			prevEl: $('.gallery-thumbs').find('.swiper-button-prev')
 		}
 	}));
 	var galleryTop = new Swiper('.gallery-top', _objectSpread(_objectSpread({}, defaultSl), {}, {
@@ -203,6 +213,16 @@ function eventHandler() {
 			swiper: galleryThumbs
 		}
 	})); // modal window
+
+	var closeAlert = document.querySelectorAll(".alert__close");
+
+	if (closeAlert) {
+		closeAlert.forEach(function (element) {
+			element.addEventListener('click', function () {
+				return element.parentNode.style.display = 'none';
+			});
+		});
+	}
 }
 
 ;

@@ -5,7 +5,7 @@
 		padding-bottom: rem(14); 
 		 border-bottom: 1px solid $light;
 		 background-color: #ffffff;
-		 z-index: 200;
+		 
 		 .row{
 			@include media-breakpoint-up(xl) {
 				--bs-gutter-x: #{rem(40)};

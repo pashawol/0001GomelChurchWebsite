@@ -47,7 +47,19 @@ h1{
 body {
 	min-width: 320px;
 	position: relative;
- 
+ &::before {
+ 	content: '';
+ 	position: absolute;
+ 	left: 0;
+ 	top: 0;
+ 	width: 100%;
+ 	height: 100%;
+ 	@include mt;
+ 	background-color: #000000;
+ 	opacity: 0;
+ 	z-index: -1;
+ 	top: 0;
+ }
 	&.fixed {
 		overflow: hidden;
 		position: absolute;
@@ -55,7 +67,10 @@ body {
 		left: 0;
 		top: 0;
 		z-index: 999;
- 
+ 	&::before {
+ 		z-index: 999;
+ 		opacity: 0.76;
+ 	}
 	}
 }
 
@@ -448,7 +463,7 @@ iframe {
 			justify-content: center;
 			align-items: center;
 			min-height: rem(80);
-			padding: rem(5) 15px;
+			padding: rem(5) 45px;
 			@include media-breakpoint-up(sm) {
 
 				font-size: rem(24);
@@ -456,6 +471,37 @@ iframe {
 			font-size: rem(18);
 			margin-bottom: 0;
 			font-weight: 600;
+			position: relative;
+			&__close{
+				cursor: pointer;
+				width: rem(26);
+				height: rem(26);
+				// position: absolute;
+				right: 30px;
+				@include a-cent(y);
+				// margin-top: rem(15);
+				padding-top: 40px;
+				&::before,
+				&::after{
+					content: '';
+					width: rem(26);
+					height: 2px;
+					background-color: #fff;
+					transition: all 0.3s;
+					backface-visibility: hidden;
+					top: 50%; 
+					left: 0;
+					transform-origin: 50% 50%;
+					position: absolute;
+				}
+					&::before {
+						transform: rotate(45deg);
+					}
+
+					&::after {
+						transform: rotate(-45deg);
+					}
+			}
 		}
 
 		.sort-block{
@@ -489,7 +535,7 @@ iframe {
 				background-image: url(../img/svg/arrow-down.svg);
 				background-repeat: no-repeat;
 						background-position: calc(100%  - 10px) 50%; // background-size: rem(18) ;
-						padding-right: rem(23px);
+						padding-right: rem(30px);
 						appearance: none !important;
 						border: none;
 						&:focus::-ms-value {

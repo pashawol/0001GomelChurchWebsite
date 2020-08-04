@@ -59,7 +59,14 @@ const JSCCommon = {
 	},
 	mobileMenu() {
 		if (this.menuMobileLink) {
-			this.toggleMenu(); 
+			this.toggleMenu();
+			document.addEventListener('mouseup', (event) => {
+				let container = event.target.closest(".menu-mobile--js.active"); // (1)
+				if (!container) {
+					this.closeMenu();
+				}
+			}, { passive: true });
+
 			window.addEventListener('resize', () => {
 				if (window.matchMedia("(min-width: 992px)").matches) {
 					JSCCommon.closeMenu();
@@ -172,9 +179,8 @@ function eventHandler() {
 				spaceBetween: 40
 			}
 		}
-	});
-	let thumbs = document.querySelector('.gallery-thumbs')
-	var galleryThumbs = new Swiper(thumbs, {
+	}); 
+	var galleryThumbs = new Swiper('.gallery-thumbs', {
 		...defaultSl,
 		// spaceBetween: 10,
 		spaceBetween: 16,
@@ -194,8 +200,8 @@ function eventHandler() {
 			}
 		},
 		navigation: {
-			nextEl: thumbs.querySelector('.swiper-button-next'),
-			prevEl: thumbs.querySelector('.swiper-button-prev'),
+			nextEl: $('.gallery-thumbs').find('.swiper-button-next'),
+			prevEl: $('.gallery-thumbs').find('.swiper-button-prev'),
 		},
 	});
 	var galleryTop = new Swiper('.gallery-top', {
@@ -209,6 +215,13 @@ function eventHandler() {
 		},
 	});
 	// modal window
+
+	let closeAlert = document.querySelectorAll(".alert__close");
+	if (closeAlert) {
+		closeAlert.forEach(function (element) {
+			element.addEventListener('click', () =>  element.parentNode.style.display = 'none' )
+		})
+	}
 
 };
 if (document.readyState !== 'loading') {
